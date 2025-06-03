@@ -1,0 +1,20 @@
+.admin-form p {
+  background-color: #eeeeee;
+  padding: 10px;
+  border-radius: 1rem;
+  color: #000;
+}
+.admin-information-btn-continer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid #fff;
+  margin-bottom: 20px;
+  gap: 10px;
+  border-bottom: 1px solid blueviolet;
+}
+.admin-form-btn {
+  width: 100% !important;
+  font-weight: 700;
+}

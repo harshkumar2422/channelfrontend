@@ -1,0 +1,14 @@
+.company-form-details {
+  color: #000;
+}
+.details-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.details-btn button {
+  font-size: 14px;
+  height: fit-content;
+  margin: 2px 0px;
+}

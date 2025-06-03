@@ -1,0 +1,99 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.signup-container {
+  position: relative;
+  background-color: #051e3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.signup-container::before {
+  opacity: 0.3;
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
+  bottom: 0px;
+  background-image: url(../../logo-vpvv.png);
+  left: 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.signup-container .signup-form-container {
+  z-index: 2;
+  width: 375px;
+  border-radius: 15px;
+  padding: 30px 25px;
+  background-color: rgba(22, 27, 34, 45%);
+  height: 450px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.signup-container .signup-form-container .signup-form {
+  display: flex;
+  flex-direction: column;
+}
+.signup-container .signup-form-container .signup-form h1 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 25px;
+}
+.signup-container .signup-form-container .signup-form label {
+  color: #fff;
+  margin: 10px 0px;
+  font-weight: 600;
+}
+.signup-container .signup-form-container .signup-form input,
+.signup-container .signup-form-container .signup-form .signup-select {
+  width: 100%;
+  padding: 11px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  color: #000 !important;
+  margin-bottom: 10px;
+}
+
+.signup-container .signup-form-container .signup-form .signup-btn {
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 50px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  transition: 0.2s all linear;
+}
+.signup-container .signup-form-container .signup-form .signup-btn:active {
+  transform: scale(0.99);
+}
+.signup-container .signup-vpvv-support {
+  position: fixed;
+  top: 10px;
+  right: 30px;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  font-size: 13px;
+  align-items: center;
+}
+.signup-container .signup-vpvv-support svg {
+  width: 35px;
+  height: 35px;
+  font-weight: 900;
+}

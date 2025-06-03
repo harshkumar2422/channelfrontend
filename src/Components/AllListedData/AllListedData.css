@@ -1,0 +1,57 @@
+.companydata-headlinelist {
+  max-height: 100vh; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+.companydata-headlinelist table thead th {
+  position: sticky;
+  top: 0;
+  background-color: white; /* Or match your design */
+  z-index: 1;
+  color: #000 !important;
+}
+.companydata-headlinelist table thead th {
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+}
+.sort-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.action-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.action-btns .form-label {
+  margin: 0px !important;
+  padding: 0px !important ;
+}
+.action-btns button {
+  height: 40px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+}
+.action-btns .form-control-sm {
+  min-height: auto;
+}
+@media only screen and (max-width: 650px) {
+  .action-btns {
+    flex-direction: column;
+  }
+.action-btns button {
+  width: 100%;
+}
+.dropdown-btn{
+  width: 100% !important;
+}
+.sorting-div{
+  /* border: 1px solid #e0e0e0; */
+  flex-direction: column !important;
+}
+}

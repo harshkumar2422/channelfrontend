@@ -1,0 +1,46 @@
+.company-listed-conatiner {
+  width: 100%;
+  color: #fff;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  background-color: #051e3f;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.container-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e04f;
+}
+.container-list-heading h1 {
+  color: #fff;
+  font-weight: 700;
+}
+.companydata-headlinelist {
+  padding: 0px 0px 7px 0px;
+  display: flex;
+  border: 1px solid #051e3f;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  color: #000;
+}
+
+.companydata-headlinelist .companydata-headName p {
+  font-weight: 600;
+}
+
+.company-des button {
+  height: fit-content;
+  font-size: 14px;
+}
+Table th {
+  text-align: center !important;
+}

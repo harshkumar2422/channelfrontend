@@ -1,0 +1,89 @@
+.Sidebar-container {
+  height: 100vh !important;
+  width: 19vw !important;
+  display: flex;
+  flex-direction: column;
+  background-color: #051e3f;
+  border-right: 1px solid #e0e0e04f;
+  color: #fff;
+  padding: 20px 20px 20px 20px;
+  text-align: center;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.sidebar-logo-profilename {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-logo-profilename p {
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  margin: 10px 0px;
+  font-size: 21px;
+  color: #ffffff72;
+  background: linear-gradient(
+    120deg,
+    rgb(255, 255, 255) 40%,
+    rgb(0, 0, 0) 50%,
+    rgb(255, 255, 255) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 4s linear infinite;
+}
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+.sidebar-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0px !important;
+}
+.sidebar-list ul a {
+  margin: 16px 10px !important;
+  color: #fff;
+  text-decoration: none;
+}
+.sidebar-list ul a li {
+  font-weight: 600;
+  list-style: none;
+  font-size: 18px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+@media only screen and (max-width: 650px) {
+  .sidebar-logo-profilename {
+    margin-bottom: 0px;
+  }
+  .Sidebar-container {
+    width: 100% !important;
+    height: auto !important;
+    border: none !important;
+    padding: 20px;
+  }
+  .sidebar-list ul {
+    align-items: center;
+  }
+  .sidebar-list ul a li {
+    border: none;
+  }
+  .sidebar-list ul a {
+    border-bottom: 1px solid #e0e0e04f;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    margin: 7px 7px !important;
+  }
+}

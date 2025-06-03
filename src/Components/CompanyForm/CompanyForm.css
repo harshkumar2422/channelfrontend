@@ -1,0 +1,35 @@
+.companyform-conatiner {
+  width: 100%;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  display: flex !important;
+  background-color: #051e3f;
+  color: #fff !important;
+  flex-direction: column !important;
+}
+.container-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e04f;
+}
+.container-heading h1 {
+  color: #fff;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 650px) {
+  .company-form form button[type="submit"] {
+    margin-bottom: 20px;
+  }
+
+  .main-container {
+    flex-direction: column !important;
+    width: 100%;
+  }
+}
