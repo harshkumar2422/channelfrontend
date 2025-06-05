@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { server } from "../../App";
 
 const CompanyForm = () => {
@@ -104,7 +104,6 @@ const CompanyForm = () => {
     <div style={{ display: "flex" }} className="main-container">
       <Sidebar />
       <div className="companyform-conatiner">
-        <Toaster position="top-right" reverseOrder={false} />
         <div className="container-heading">
           <h1>Business Identity Registration</h1>
         </div>

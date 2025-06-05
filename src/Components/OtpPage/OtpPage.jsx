@@ -11,15 +11,14 @@ const OtpPage = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-     if (!token) {
-    toast.error("No token found. Please login first.");
-    navigate("/");
-  }
+    if (!token) {
+      toast.error("No token found. Please login first.");
+      navigate("/");
+    }
 
     try {
       const response = await axios.post(
