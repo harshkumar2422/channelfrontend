@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { toast } from "react-hot-toast";
 import { server } from "../../App";
+import { Navigate } from "react-router-dom";
 
 const CompanyForm = () => {
   const [formData, setFormData] = useState({
@@ -57,21 +58,12 @@ const CompanyForm = () => {
       if (portfolio) payload.append("portfolio", portfolio);
       // if (aadhar) payload.append("aadhar", aadhar);
 
-      const res = await axios.post(
-        `${server}/registercompany`,
-        payload,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Store token if returned
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-      }
+      const res = await axios.post(`${server}/registercompany`, payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       toast.success("Company submitted successfully!", { id: toastId });
 
@@ -90,9 +82,10 @@ const CompanyForm = () => {
       // setAadhar(null);
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Failed to submit company. Please try again.", {
+      toast.error("Failed to submit company. Please Login again.", {
         id: toastId,
       });
+      Navigate("/");
     }
   };
 
@@ -225,6 +218,7 @@ const CompanyForm = () => {
               <Form.Control
                 type="file"
                 onChange={(e) => setPortfolio(e.target.files[0])}
+                required
               />
             </Form.Group>
 

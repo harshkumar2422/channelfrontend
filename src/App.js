@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import {
@@ -6,8 +6,9 @@ import {
   Navigate,
   Route,
   Routes,
-  useNavigate,
 } from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+
 import CompanyForm from "./Components/CompanyForm/CompanyForm";
 import CompanyList from "./Components/CompanyList/CompanyList";
 import Login from "./Components/LoginPage/Login";
@@ -25,16 +26,36 @@ import UploadAadhar from "./Components/UploadAadharCard/UploadAadhar";
 
 export const server = "https://channelpartnerbackend.onrender.com/api/v1";
 
+// Secure token check
+const isAuthenticated = () => {
+  const token = localStorage.getItem("token");
+  if (!token) return false;
+
+  try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    return decoded.exp > currentTime;
+  } catch (error) {
+    console.error("Invalid token:", error);
+    localStorage.removeItem("token");
+    return false;
+  }
+};
+
+const Protected = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/admin/login" replace />;
+};
+
+const Protectedclient = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/" replace />;
+};
+
 const App = () => {
-  const isAuthenticated = () => {
-    return !!localStorage.getItem("token");
-  };
-  const Protected = ({ children }) => {
-    return isAuthenticated() ? children : <Navigate to="/admin" replace />;
-  };
-  const Protectedclient = ({ children }) => {
-    return isAuthenticated() ? children : <Navigate to="/" replace />;
-  };
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      localStorage.removeItem("token");
+    }
+  }, []);
 
   return (
     <>
@@ -65,7 +86,7 @@ const App = () => {
             }
           />
           <Route
-            path="company-list"
+            path="/company-list"
             element={
               <Protectedclient>
                 <CompanyList />
@@ -107,9 +128,9 @@ const App = () => {
           <Route
             path="/upload-aadhar/:id"
             element={
-              <Protected>
+              <Protectedclient>
                 <UploadAadhar />
-              </Protected>
+              </Protectedclient>
             }
           />
         </Routes>
