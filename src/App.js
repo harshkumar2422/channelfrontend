@@ -19,7 +19,7 @@ import CreateNewAccount from "./Components/CreateNewAccount/CreateNewAccount";
 import AdminCreateNewAccount from "./Components/AdminCreateNewAccount/AdminCreateNewAccount";
 import UploadAadhar from "./Components/UploadAadharCard/UploadAadhar";
 
-export const server = "http://localhost:4000/api/v1";
+export const server = "https://channelpartnerbackend.onrender.com/api/v1";
 
 // Secure token check
 const isAuthenticated = () => {
