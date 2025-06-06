@@ -8,7 +8,6 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import { server } from "../../App";
 
-
 const CompanyList = () => {
   const navigate = useNavigate();
 
@@ -26,14 +25,11 @@ const CompanyList = () => {
     const fetchCompanies = async () => {
       const token = localStorage.getItem("token");
       try {
-        const { data } = await axios.get(
-          `${server}/getcompanybychannel`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const { data } = await axios.get(`${server}/getcompanybychannel`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         let sortedCompanies = data.company || [];
 
@@ -45,8 +41,7 @@ const CompanyList = () => {
         setCompanies(sortedCompanies);
         console.log("data", sortedCompanies);
       } catch (error) {
-        console.error("Failed to fetch companies:", error);
-        alert("Failed to fetch companies. Check token or backend.");
+        console.error("Failed to fetch companies: Please Login Again");
       }
     };
 
@@ -125,10 +120,12 @@ const CompanyList = () => {
                   </td>
                   <td>
                     {comp.Status === "Initial Approved" ? (
-                      <Button variant="secondary"
-                      onClick={() => navigate(`/upload-aadhar/${comp._id}`)}
-
-                      >Upload Aadhar</Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => navigate(`/upload-aadhar/${comp._id}`)}
+                      >
+                        Upload Aadhar
+                      </Button>
                     ) : (
                       <span style={{ color: "gray" }}>Not Available</span>
                     )}

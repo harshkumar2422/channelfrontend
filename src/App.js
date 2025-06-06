@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 import CompanyForm from "./Components/CompanyForm/CompanyForm";
 import CompanyList from "./Components/CompanyList/CompanyList";
@@ -24,7 +19,7 @@ import CreateNewAccount from "./Components/CreateNewAccount/CreateNewAccount";
 import AdminCreateNewAccount from "./Components/AdminCreateNewAccount/AdminCreateNewAccount";
 import UploadAadhar from "./Components/UploadAadharCard/UploadAadhar";
 
-export const server = "https://channelpartnerbackend.onrender.com/api/v1";
+export const server = "http://localhost:4000/api/v1";
 
 // Secure token check
 const isAuthenticated = () => {
