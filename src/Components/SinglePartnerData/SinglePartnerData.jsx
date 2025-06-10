@@ -29,19 +29,18 @@ const SinglePartnerData = () => {
     const fetchCompanies = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(
-          `${server}/getcompanybychannelid/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await axios.get(`${server}/getcompanybychannelid/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         let fetchedCompanies = res.data.company || [];
 
         // Sort companies from newest to oldest using createdAt
-        fetchedCompanies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        fetchedCompanies.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
 
         setCompanies(fetchedCompanies);
       } catch (error) {
@@ -54,7 +53,7 @@ const SinglePartnerData = () => {
   }, [id]);
 
   return (
-    <div style={{ display: "flex" }}  className="main-container">
+    <div style={{ display: "flex" }} className="main-container">
       <AdminSidebar />
       <div className="admin-companyform-conatiner">
         <div className="admin-container-heading">
@@ -89,7 +88,9 @@ const SinglePartnerData = () => {
                   <td>
                     <Button
                       variant="outline-info"
-                      onClick={() => navigate(`/admin/information/${company._id}`)}
+                      onClick={() =>
+                        navigate(`/admin/information/${company._id}`)
+                      }
                     >
                       View
                     </Button>

@@ -23,6 +23,12 @@ const AdminSidebar = () => {
             <NavLink to="/admin/all-listed-data">
               <li>Data Inventory</li>
             </NavLink>
+            <NavLink to="/admin/addvisitors">
+              <li>Add Vistors Entry</li>
+            </NavLink>
+            <NavLink to="/admin/vistiorentrylog">
+              <li>Vistors Entry Log</li>
+            </NavLink>
           </ul>
         </div>
       </div>

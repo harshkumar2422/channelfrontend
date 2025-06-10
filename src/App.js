@@ -18,8 +18,12 @@ import AdminOtpPage from "./Components/AdminOtpPage/AdminOtpPage";
 import CreateNewAccount from "./Components/CreateNewAccount/CreateNewAccount";
 import AdminCreateNewAccount from "./Components/AdminCreateNewAccount/AdminCreateNewAccount";
 import UploadAadhar from "./Components/UploadAadharCard/UploadAadhar";
+import AddVistorsEntry from "./Components/AddVistorsEntry/AddVistorsEntry";
+import VisitorsEntrylog from "./Components/VisitorsEntryLog/VisitorsEntrylog";
 
 export const server = "https://channelpartnerbackend.onrender.com/api/v1";
+
+//https://channelpartnerbackend.onrender.com/api/v1
 
 // Secure token check
 const isAuthenticated = () => {
@@ -126,6 +130,23 @@ const App = () => {
               <Protectedclient>
                 <UploadAadhar />
               </Protectedclient>
+            }
+          />
+
+          <Route
+            path="/admin/addvisitors"
+            element={
+              <Protected>
+                <AddVistorsEntry />
+              </Protected>
+            }
+          />
+          <Route
+            path="/admin/vistiorentrylog"
+            element={
+              <Protected>
+                <VisitorsEntrylog />
+              </Protected>
             }
           />
         </Routes>
