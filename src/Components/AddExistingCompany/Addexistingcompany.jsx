@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./AddVistorsEntry.css";
 import AdminSidebar from "../AdminSidebar/AdminSidebar";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -8,9 +7,8 @@ import Row from "react-bootstrap/Row";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { server } from "../../App";
-import { Navigate } from "react-router-dom";
 
-const AddVistorsEntry = () => {
+const Addexistingcompany = () => {
   const [formData, setFormData] = useState({
     company: "",
     companyId: "",
@@ -22,10 +20,11 @@ const AddVistorsEntry = () => {
     state: "",
     pin: "",
     date: "",
-    reference: "",
+    status: "",
   });
 
   const [portfolio, setPortfolio] = useState(null);
+  const [aadhar, setAadhar] = useState(null);
   const [companies, setCompanies] = useState([]);
 
   const handleChange = (e) => {
@@ -42,26 +41,6 @@ const AddVistorsEntry = () => {
       ...prev,
       companyId: selectedCompanyId,
     }));
-
-    const selectedCompany = companies.find(
-      (comp) => comp._id === selectedCompanyId
-    );
-
-    if (selectedCompany) {
-      setFormData((prev) => ({
-        ...prev,
-        companyId: selectedCompanyId,
-        company: selectedCompany.name || "",
-        owner: selectedCompany.owner || "",
-        email: selectedCompany.email || selectedCompany.channelEmail || "",
-        phone: selectedCompany.phone || "",
-        address: selectedCompany.address || "",
-        city: selectedCompany.city || "",
-        state: selectedCompany.state || "",
-        pin: selectedCompany.pincode || "",
-        reference: selectedCompany.Reference || "",
-      }));
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -70,24 +49,26 @@ const AddVistorsEntry = () => {
     const toastId = toast.loading("Submitting company...");
 
     try {
-      const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
+        
       const payload = new FormData();
 
-      payload.append("company", formData.companyId);
-      payload.append("companyname", formData.company);
-      payload.append("name", formData.owner);
+      payload.append("chanel", formData.companyId);
+      payload.append("name", formData.company);
+      payload.append("owner", formData.owner);
       payload.append("email", formData.email);
       payload.append("phone", formData.phone);
       payload.append("address", formData.address);
       payload.append("city", formData.city);
       payload.append("state", formData.state);
       payload.append("pincode", formData.pin);
-      payload.append("Date", formData.date);
-      payload.append("Reference", formData.reference);
+      payload.append("date", formData.date);
+      payload.append("Status", formData.status);
 
-      if (portfolio) payload.append("aadhar", portfolio);
+      if (portfolio) payload.append("portfolio", portfolio);
+      if (aadhar) payload.append("aadhar", aadhar);
 
-      const res = await axios.post(`${server}/AddEntry`, payload, {
+      const res = await axios.post(`${server}/alreadyregistered`, payload, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -107,12 +88,13 @@ const AddVistorsEntry = () => {
         state: "",
         pin: "",
         date: "",
-        reference: "",
+        status: "",
       });
       setPortfolio(null);
+      setAadhar(null);
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Failed to submit company. Please Login again.", {
+      toast.error(error.response.data.message, {
         id: toastId,
       });
     }
@@ -121,9 +103,8 @@ const AddVistorsEntry = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${server}/getCompany`);
-        setCompanies(response.data.compnay);
-        console.log("data", response.data.compnay);
+        const response = await axios.get(`${server}/getchannel`);
+        setCompanies(response.data.chanel);
       } catch (error) {
         console.error("Error fetching companies:", error);
       }
@@ -131,25 +112,24 @@ const AddVistorsEntry = () => {
 
     fetchData();
   }, []);
-
   return (
     <div style={{ display: "flex" }} className="main-container">
       <AdminSidebar />
       <div className="admin-companyform-conatiner">
         <div className="admin-container-heading">
-          <h1> Add Visitors Entry</h1>
+          <h1> Add Company </h1>
         </div>
         <div className="company-form">
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group controlId="formGridCompany">
-                <Form.Label>Select Company (If Applicable)</Form.Label>
+                <Form.Label>Select Channel Partner (If Applicable)</Form.Label>
                 <Form.Select
                   name="companyId"
                   value={formData.companyId}
                   onChange={handleCompanySelect}
                 >
-                  <option value="">-- Select Company --</option>
+                  <option value="">-- Select Channel Partner --</option>
                   {companies.map((company) => (
                     <option
                       key={company._id || company.name}
@@ -169,7 +149,6 @@ const AddVistorsEntry = () => {
                   value={formData.company}
                   onChange={handleChange}
                   placeholder="Enter company name"
-                  readOnly={!!formData.companyId}
                 />
               </Form.Group>
 
@@ -180,7 +159,7 @@ const AddVistorsEntry = () => {
                   name="owner"
                   value={formData.owner}
                   onChange={handleChange}
-                  placeholder="Enter Visitors Name"
+                  placeholder="Enter Owner's Name"
                 />
               </Form.Group>
             </Row>
@@ -193,7 +172,7 @@ const AddVistorsEntry = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter email"
+                  placeholder="Enter Email"
                 />
               </Form.Group>
 
@@ -261,19 +240,32 @@ const AddVistorsEntry = () => {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <Form.Group as={Col} controlId="formGridReference">
-                <Form.Label>Reference *</Form.Label>
-                <Form.Control
-                  name="reference"
-                  value={formData.reference}
+              <Form.Group as={Col} controlId="formGridstatus">
+                <Form.Label>Status *</Form.Label>
+                <Form.Select
+                  name="status"
+                  value={formData.status}
                   onChange={handleChange}
-                  placeholder="Reference"
-                />
+                >
+                  <option value="">Select status</option>
+                  <option value="Initial Approved">Initial Approved</option>
+                  <option value="Due Diligence Approved">
+                    Due Diligence Approved
+                  </option>
+                  <option value="Declined">Declined</option>
+                </Form.Select>
               </Form.Group>
             </Row>
 
             <Form.Group controlId="formFilePortfolio" className="mb-3">
               <Form.Label>Upload Aadhar *</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e) => setAadhar(e.target.files[0])}
+              />
+            </Form.Group>
+            <Form.Group controlId="formFilePortfolio" className="mb-3">
+              <Form.Label>Upload Portfolio *</Form.Label>
               <Form.Control
                 type="file"
                 onChange={(e) => setPortfolio(e.target.files[0])}
@@ -290,4 +282,4 @@ const AddVistorsEntry = () => {
   );
 };
 
-export default AddVistorsEntry;
+export default Addexistingcompany;

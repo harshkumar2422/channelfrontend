@@ -20,10 +20,12 @@ import AdminCreateNewAccount from "./Components/AdminCreateNewAccount/AdminCreat
 import UploadAadhar from "./Components/UploadAadharCard/UploadAadhar";
 import AddVistorsEntry from "./Components/AddVistorsEntry/AddVistorsEntry";
 import VisitorsEntrylog from "./Components/VisitorsEntryLog/VisitorsEntrylog";
+import Addexistingcompany from "./Components/AddExistingCompany/Addexistingcompany";
 
-export const server = "https://channelpartnerbackend.onrender.com/api/v1";
+export const server = "https://channelpartnerbackend-g6nl.onrender.com/api/v1";
 
 //https://channelpartnerbackend.onrender.com/api/v1
+// http://localhost:4000
 
 // Secure token check
 const isAuthenticated = () => {
@@ -146,6 +148,14 @@ const App = () => {
             element={
               <Protected>
                 <VisitorsEntrylog />
+              </Protected>
+            }
+          />
+          <Route
+            path="/admin/addexistingCompany"
+            element={
+              <Protected>
+                <Addexistingcompany />
               </Protected>
             }
           />

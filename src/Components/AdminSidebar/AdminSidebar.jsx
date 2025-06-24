@@ -29,6 +29,9 @@ const AdminSidebar = () => {
             <NavLink to="/admin/vistiorentrylog">
               <li>Vistors Entry Log</li>
             </NavLink>
+            <NavLink to="/admin/addexistingCompany">
+              <li>Add Existing Company</li>
+            </NavLink>
           </ul>
         </div>
       </div>

@@ -27,6 +27,8 @@ const AdminLogin = () => {
       // Navigate to channel-partner page
       navigate("/admin/channel-partner");
     } catch (error) {
+      console.log(error);
+      
       const message = error.response?.data?.message || "Login failed!";
       toast.error(message);
     }
