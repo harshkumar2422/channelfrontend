@@ -33,3 +33,14 @@
     width: 100%;
   }
 }
+ .table>:not(caption) >>{
+  background-color: #051e3f !important;
+  color: #fff !important;
+  border: none !important;
+}
+.tabelofcheckbox .form-check{
+  padding-left: 2rem;
+}
+.tabelofcheckbox .form-check-label{
+  margin-left: 1rem !important;
+}

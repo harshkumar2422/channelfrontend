@@ -25,7 +25,7 @@ import Addexistingcompany from "./Components/AddExistingCompany/Addexistingcompa
 export const server = "https://channelpartnerbackend-4ih4.onrender.com/api/v1";
 
 //https://channelpartnerbackend-g6nl.onrender.com/api/v1
-// http://localhost:4000
+// 
 
 // Secure token check
 const isAuthenticated = () => {

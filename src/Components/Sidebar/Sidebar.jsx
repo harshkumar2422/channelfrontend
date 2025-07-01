@@ -19,7 +19,7 @@ const Sidebar = () => {
         <div className="sidebar-list">
           <ul>
             <NavLink to="/company-form">
-              <li>Identity Registration</li>
+              <li>Nomination Form</li>
             </NavLink>
             <NavLink to="/company-list">
               <li>Registered Companies</li>
