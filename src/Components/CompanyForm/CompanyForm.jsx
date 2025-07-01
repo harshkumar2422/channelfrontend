@@ -14,6 +14,7 @@ import { server } from "../../App";
 import { Navigate } from "react-router-dom";
 
 const CompanyForm = () => {
+  /* ─────────── main form state ─────────── */
   const [formData, setFormData] = useState({
     company: "",
     owner: "",
@@ -25,14 +26,24 @@ const CompanyForm = () => {
     pin: "",
     description: "",
   });
-
   const [portfolio, setPortfolio] = useState(null);
 
-  /* ── modal/checkbox state ───────────────────────────── */
+  /* ─────────── qualification metrics ───── */
+  const [metrics, setMetrics] = useState({
+    project50: false,
+    govExperience: false,
+    certifications: false,
+    notBlacklisted: false,
+    techAlignment: false,
+    dueDiligence: false,
+    publicListing: false,
+  });
+
+  /* ─────────── modal state ─────────────── */
   const [showConfirm, setShowConfirm] = useState(false);
   const [agree, setAgree] = useState(false);
 
-  /* ── helpers ─────────────────────────────────────────── */
+  /* ─────────── helpers ─────────────────── */
   const resetForm = () => {
     setFormData({
       company: "",
@@ -46,6 +57,15 @@ const CompanyForm = () => {
       description: "",
     });
     setPortfolio(null);
+    setMetrics({
+      project50: false,
+      govExperience: false,
+      certifications: false,
+      notBlacklisted: false,
+      techAlignment: false,
+      dueDiligence: false,
+      publicListing: false,
+    });
     setAgree(false);
   };
 
@@ -55,7 +75,7 @@ const CompanyForm = () => {
       const token = localStorage.getItem("token");
       const payload = new FormData();
 
-      // text fields
+      /* text fields */
       payload.append("name", formData.company);
       payload.append("owner", formData.owner);
       payload.append("email", formData.email);
@@ -66,8 +86,11 @@ const CompanyForm = () => {
       payload.append("pincode", formData.pin);
       payload.append("description", formData.description);
 
-      // file
+      /* file */
       if (portfolio) payload.append("portfolio", portfolio);
+
+      /* qualification metrics (as JSON string) */
+      payload.append("qualificationMetrics", JSON.stringify(metrics));
 
       await axios.post(`${server}/registercompany`, payload, {
         headers: {
@@ -88,14 +111,11 @@ const CompanyForm = () => {
     }
   };
 
-  /* ── event handlers ─────────────────────────────────── */
-  // first click → just open modal
+  /* ─────────── event handlers ──────────── */
   const handlePreSubmit = (e) => {
     e.preventDefault();
     setShowConfirm(true);
   };
-
-  // modal button → final submit
   const handleFinalSubmit = () => {
     if (!agree) return toast.error("Please tick the confirmation box first.");
     postToBackend();
@@ -106,12 +126,15 @@ const CompanyForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  /* ── JSX ─────────────────────────────────────────────── */
+  const handleMetricToggle = (key) =>
+    setMetrics((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  /* ─────────── JSX ─────────────────────── */
   return (
     <div style={{ display: "flex" }} className="main-container">
       <Sidebar />
 
-      {/* ────────────── FORM ────────────── */}
+      {/* ───────────── FORM ───────────── */}
       <div className="companyform-conatiner">
         <div className="container-heading">
           <h1>Business Identity Registration</h1>
@@ -119,9 +142,46 @@ const CompanyForm = () => {
 
         <div className="company-form">
           <Form onSubmit={handlePreSubmit}>
+            {/* ========== SECTION A/B ========== */}
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCompany">
-                <Form.Label>Company *</Form.Label>
+                <Form.Label>Full Legal Name of Nominee Company *</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="Enter company name"
+                  required
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridCompany">
+                <Form.Label>CIN / Company Registration No *</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="CIN No"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Year of Incorporation *</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Year of Incorporation"
+                  required
+                />
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridCompany">
+                <Form.Label>No. of Employees (Permanent) *</Form.Label>
                 <Form.Control
                   type="text"
                   name="company"
@@ -132,6 +192,32 @@ const CompanyForm = () => {
                 />
               </Form.Group>
 
+              <Form.Group as={Col} controlId="formGridCompany">
+                <Form.Label>Primary Sector *</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="CIN No"
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Annual Turnover (Last FY) *</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Year of Incorporation"
+                  required
+                />
+              </Form.Group>
+            </Row>
+
+            <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridOwner">
                 <Form.Label>Director / Proprietor *</Form.Label>
                 <Form.Control
@@ -143,9 +229,7 @@ const CompanyForm = () => {
                   required
                 />
               </Form.Group>
-            </Row>
 
-            <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Email *</Form.Label>
                 <Form.Control
@@ -170,18 +254,28 @@ const CompanyForm = () => {
                 />
               </Form.Group>
             </Row>
-
-            <Form.Group className="mb-3" controlId="formGridAddress">
-              <Form.Label>Company Mailing Address *</Form.Label>
-              <Form.Control
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder="1234 Main Street"
-                required
-              />
-            </Form.Group>
-
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridAddress">
+                <Form.Label>Head Office Address *</Form.Label>
+                <Form.Control
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="1234 Main Street"
+                  required
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridCity">
+                <Form.Label>Countries of Operation (if any)</Form.Label>
+                <Form.Control
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  placeholder="India"
+                  required
+                />
+              </Form.Group>
+            </Row>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>City *</Form.Label>
@@ -238,15 +332,72 @@ const CompanyForm = () => {
                 required
               />
             </Form.Group>
+            <h5 className="mt-4 mb-2"> Type of Company </h5>
+            <Form.Group>
+              <FormCheck id="metric-project50" label="Pvt Ltd" />
+              <FormCheck id="metric-project50" label="LLP" />
+              <FormCheck id="metric-project50" label="Partnership" />
+              <FormCheck id="metric-project50" label="other" />
+            </Form.Group>
+            {/* ========== SECTION C – QUALIFICATION METRICS ========== */}
+            <h5 className="mt-4 mb-2">SECTION B: QUALIFICATION METRICS</h5>
+            <Form.Group>
+              <FormCheck
+                id="metric-project50"
+                label="Company has completed ≥ ₹50 Cr single project in last 5 years"
+                checked={metrics.project50}
+                onChange={() => handleMetricToggle("project50")}
+              />
+              <FormCheck
+                id="metric-govExperience"
+                label="Company has worked with central/state government/PSUs"
+                checked={metrics.govExperience}
+                onChange={() => handleMetricToggle("govExperience")}
+              />
+              <FormCheck
+                id="metric-certifications"
+                label="Company holds ISO/CMMI/ESG/Defense certifications"
+                checked={metrics.certifications}
+                onChange={() => handleMetricToggle("certifications")}
+              />
+              <FormCheck
+                id="metric-notBlacklisted"
+                label="Company is not blacklisted (self‑declared)"
+                checked={metrics.notBlacklisted}
+                onChange={() => handleMetricToggle("notBlacklisted")}
+              />
+              <FormCheck
+                id="metric-techAlignment"
+                label="Company has tech/governance/digital infrastructure alignment"
+                checked={metrics.techAlignment}
+                onChange={() => handleMetricToggle("techAlignment")}
+              />
+              <FormCheck
+                id="metric-dueDiligence"
+                label="Company is willing to undergo due diligence and background checks"
+                checked={metrics.dueDiligence}
+                onChange={() => handleMetricToggle("dueDiligence")}
+              />
+              <FormCheck
+                id="metric-publicListing"
+                label="Company agrees to public listing of onboarding once approved"
+                checked={metrics.publicListing}
+                onChange={() => handleMetricToggle("publicListing")}
+              />
+            </Form.Group>
 
-            <Button variant="primary" type="submit" style={{ width: "100%" }}>
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ width: "100%", marginTop: "1.5rem" }}
+            >
               Submit &amp; Send For Approval
             </Button>
           </Form>
         </div>
       </div>
 
-      {/* ────────────── MODAL ────────────── */}
+      {/* ───────────── MODAL ───────────── */}
       <Modal
         show={showConfirm}
         onHide={() => setShowConfirm(false)}
