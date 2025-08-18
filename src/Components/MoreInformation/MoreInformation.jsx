@@ -35,6 +35,8 @@ const MoreInformation = () => {
 
   const updateStatus = async (newStatus) => {
     try {
+      console.log("ew",newStatus);
+      
       setLoading(true);
       const token = localStorage.getItem("token");
       await axios.put(
